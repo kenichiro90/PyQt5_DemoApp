@@ -13,7 +13,7 @@ class DemoApp(QWidget):
     # -------------------------------------------------------------------------
     # シグナルの初期化
     # -------------------------------------------------------------------------
-    sig_prog_status = pyqtSignal(int)
+    sig_progressBar_value = pyqtSignal(int)
     sig_error_message = pyqtSignal(object)
 
     def __init__(self, parent=None):
@@ -30,7 +30,7 @@ class DemoApp(QWidget):
         #     http://t2y.hatenablog.jp/entry/20100914/1284402024
         # ---------------------------------------------------------------------
         self.threadPool = QThreadPool()
-        self.sig_prog_status.connect(self.refresh_progressBar)
+        self.sig_progressBar_value.connect(self.refresh_progressBar)
         self.sig_error_message.connect(self.display_sig_error_message)
         # ---------------------------------------------------------------------
         # フラグの初期化
@@ -55,7 +55,7 @@ class DemoApp(QWidget):
                                                 self.errorFlag != True):
             # シグナルを受け取ったら、プログレスバーの値を更新する
             time.sleep(0.2)
-            self.sig_prog_status.emit(globalParams.fileCounter)
+            self.sig_progressBar_value.emit(globalParams.fileCounter)
 
     def location_on_the_screen(self, xPos, yPos):
 
@@ -252,8 +252,8 @@ class DemoApp(QWidget):
         except PermissionError as e:
             self.send_error_signal(e)
         except:
-            # Tracebackに、メッセージを出力
-            traceback.print_exc()
+            # Tracebackの内容をシグナルとして送る
+            e = traceback.format_exc()
             self.send_error_signal(e)
 
     def send_error_signal(self, e):
@@ -263,7 +263,7 @@ class DemoApp(QWidget):
         # ---------------------------------------------------------------------
         self.errorFlag = True
         # ---------------------------------------------------------------------
-        # シグナルを送る
+        # エラー内容をシグナルとして送る
         # ---------------------------------------------------------------------
         self.sig_error_message.emit(e)
 
