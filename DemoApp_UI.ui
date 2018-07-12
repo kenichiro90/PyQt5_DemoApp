@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>DemoApp</class>
+ <widget class="QWidget" name="DemoApp">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>700</width>
+    <height>450</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>DemoApp</string>
+  </property>
+  <widget class="QTabWidget" name="tabWidget">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>10</y>
+     <width>681</width>
+     <height>391</height>
+    </rect>
+   </property>
+   <property name="currentIndex">
+    <number>0</number>
+   </property>
+   <widget class="QWidget" name="tab">
+    <attribute name="title">
+     <string>Main処理</string>
+    </attribute>
+    <widget class="QGroupBox" name="groupBox">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>10</y>
+       <width>651</width>
+       <height>121</height>
+      </rect>
+     </property>
+     <property name="title">
+      <string>ファイル関係</string>
+     </property>
+     <widget class="QWidget" name="gridLayoutWidget">
+      <property name="geometry">
+       <rect>
+        <x>15</x>
+        <y>25</y>
+        <width>621</width>
+        <height>80</height>
+       </rect>
+      </property>
+      <layout class="QGridLayout" name="gridLayout">
+       <item row="1" column="1">
+        <widget class="QLineEdit" name="outputFolderLineEdit">
+         <property name="text">
+          <string>入力フォルダの絶対パスを指定してください</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1">
+        <widget class="QLineEdit" name="inputFolderLineEdit">
+         <property name="text">
+          <string>入力フォルダの絶対パスを指定してください</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="0">
+        <widget class="QLabel" name="label_2">
+         <property name="text">
+          <string>出力フォルダ</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="0">
+        <widget class="QLabel" name="label_3">
+         <property name="text">
+          <string>Configファイル</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="1">
+        <widget class="QLineEdit" name="configFileLineEdit">
+         <property name="text">
+          <string>入力フォルダの絶対パスを指定してください</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="0">
+        <widget class="QLabel" name="label">
+         <property name="text">
+          <string>入力フォルダ</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="2">
+        <widget class="QPushButton" name="selectInputFolderPushButton">
+         <property name="text">
+          <string>入力フォルダを指定</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="2">
+        <widget class="QPushButton" name="selectOutputFolderPushButton">
+         <property name="text">
+          <string>出力フォルダを指定</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </widget>
+    <widget class="QGroupBox" name="groupBox_2">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>150</y>
+       <width>351</width>
+       <height>91</height>
+      </rect>
+     </property>
+     <property name="title">
+      <string>データ取得日・測定回数</string>
+     </property>
+     <widget class="QWidget" name="gridLayoutWidget_2">
+      <property name="geometry">
+       <rect>
+        <x>15</x>
+        <y>25</y>
+        <width>321</width>
+        <height>51</height>
+       </rect>
+      </property>
+      <layout class="QGridLayout" name="gridLayout_2">
+       <item row="0" column="0">
+        <widget class="QLabel" name="label_4">
+         <property name="text">
+          <string>データ取得日(西暦表示)</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1">
+        <widget class="QDateEdit" name="dateEdit"/>
+       </item>
+       <item row="1" column="0">
+        <widget class="QLabel" name="label_5">
+         <property name="text">
+          <string>測定回数</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="1">
+        <widget class="QLineEdit" name="lineEdit_4">
+         <property name="text">
+          <string>001</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+     <zorder>gridLayoutWidget_2</zorder>
+     <zorder>label_4</zorder>
+     <zorder>label_4</zorder>
+    </widget>
+   </widget>
+  </widget>
+  <widget class="QLabel" name="analyzerStateLabel">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>420</y>
+     <width>50</width>
+     <height>12</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>待機中</string>
+   </property>
+  </widget>
+  <widget class="QProgressBar" name="progressBar">
+   <property name="geometry">
+    <rect>
+     <x>70</x>
+     <y>414</y>
+     <width>191</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <property name="value">
+    <number>24</number>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="mainPushButton">
+   <property name="geometry">
+    <rect>
+     <x>290</x>
+     <y>410</y>
+     <width>121</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>実行</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="readConfigFilePushButton">
+   <property name="geometry">
+    <rect>
+     <x>430</x>
+     <y>410</y>
+     <width>121</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Configから読込む</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="writeConfigFilePushButton">
+   <property name="geometry">
+    <rect>
+     <x>570</x>
+     <y>410</y>
+     <width>121</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Configへ書込む</string>
+   </property>
+  </widget>
+ </widget>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>mainPushButton</sender>
+   <signal>clicked()</signal>
+   <receiver>DemoApp</receiver>
+   <slot>multiThread_runMainAnalysis()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>293</x>
+     <y>429</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>240</x>
+     <y>355</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>selectInputFolderPushButton</sender>
+   <signal>clicked()</signal>
+   <receiver>DemoApp</receiver>
+   <slot>showInputFolderDialog()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>593</x>
+     <y>82</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>531</x>
+     <y>209</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>selectOutputFolderPushButton</sender>
+   <signal>clicked()</signal>
+   <receiver>DemoApp</receiver>
+   <slot>showOutputFolderDialog()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>642</x>
+     <y>105</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>541</x>
+     <y>257</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>readConfigFilePushButton</sender>
+   <signal>clicked()</signal>
+   <receiver>DemoApp</receiver>
+   <slot>readConfigFileDialog()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>479</x>
+     <y>418</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>427</x>
+     <y>331</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>writeConfigFilePushButton</sender>
+   <signal>clicked()</signal>
+   <receiver>DemoApp</receiver>
+   <slot>writeConfigFileDialog()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>564</x>
+     <y>427</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>467</x>
+     <y>298</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <slots>
+  <slot>showInputFolderDialog()</slot>
+  <slot>showOutputFolderDialog()</slot>
+  <slot>multiThread_runMainAnalysis()</slot>
+  <slot>readConfigFileDialog()</slot>
+  <slot>writeConfigFileDialog()</slot>
+ </slots>
+</ui>
