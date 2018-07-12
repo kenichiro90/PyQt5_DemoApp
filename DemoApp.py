@@ -25,7 +25,7 @@ class DemoApp(QWidget):
         self.ui = Ui_DemoApp()
         self.ui.setupUi(self)
         # ---------------------------------------------------------------------
-        # スロットの初期化
+        # シグナルとスロットの接続
         #   参考にしたサイト
         #     http://t2y.hatenablog.jp/entry/20100914/1284402024
         # ---------------------------------------------------------------------
@@ -56,9 +56,6 @@ class DemoApp(QWidget):
             # シグナルを受け取ったら、プログレスバーの値を更新する
             time.sleep(0.2)
             self.sig_prog_status.emit(globalParams.fileCounter)
-        else:
-            # 既定のファイル数に達したら、値を100%に設定する
-            self.ui.progressBar.setValue(100)
 
     def location_on_the_screen(self, xPos, yPos):
 
@@ -75,8 +72,7 @@ class DemoApp(QWidget):
         self.inputFd = QFileDialog()
         self.inputFp = self.inputFd.getExistingDirectory()
         if self.inputFd:
-            self.ui.inputFolderLineEdit.setText(
-                                            self.inputFp.replace("/", "\\"))
+            self.ui.inputFolderLineEdit.setText(self.inputFp)
         elif self.inputFd == "":
             pass
 
@@ -88,8 +84,7 @@ class DemoApp(QWidget):
         self.outputFd = QFileDialog()
         self.outputFp = self.outputFd.getExistingDirectory()
         if self.outputFd:
-            self.ui.outputFolderLineEdit.setText(
-                                            self.outputFp.replace("/", "\\"))
+            self.ui.outputFolderLineEdit.setText(self.outputFp)
         elif self.outputFd == "":
             pass
 
@@ -126,8 +121,7 @@ class DemoApp(QWidget):
         # ---------------------------------------------------------------------
         if self.writeConfigFp[0]:
             self.setToConfigFile()
-            self.ui.configFileLineEdit.setText(
-                                    self.writeConfigFp[0].replace("/", "\\"))
+            self.ui.configFileLineEdit.setText(self.writeConfigFp[0])
             QMessageBox.information(self, "Message", 
                                     u"設定内容をConfigファイルに書き込みました")
         elif self.writeConfigFp[0] == "":
@@ -227,7 +221,7 @@ class DemoApp(QWidget):
         # ---------------------------------------------------------------------
         # 変数の初期化
         # ---------------------------------------------------------------------
-        filePath = glob.glob(self.ui.inputFolderLineEdit.text() + "\\*.*")
+        filePath = glob.glob(self.ui.inputFolderLineEdit.text() + "/*.*")
         globalParams.fileNum = len(filePath)
 
     def runMainModule(self):
