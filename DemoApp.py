@@ -181,13 +181,36 @@ class DemoApp(QWidget):
         # ---------------------------------------------------------------------
         # 解析を実行するファイル数のカウント & プログレスバーの初期化
         # ---------------------------------------------------------------------
-        self.countInputFiles()
-        self.ui.progressBar.setRange(0, int(globalParams.fileNum))
+        try:
+            self.countInputFiles()
+            self.ui.progressBar.setRange(0, int(globalParams.fileNum))
+            # ---------------------------------------------------------------------
+            # Threadの実行
+            # ---------------------------------------------------------------------
+            self.threadPool.start(worker)
+            self.threadPool.start(worker2)
+        except:
+            pass
+
+    def singleThread_runMainAnalysis(self):
+
         # ---------------------------------------------------------------------
-        # Threadの実行
+        # グローバル変数の初期化
         # ---------------------------------------------------------------------
-        self.threadPool.start(worker)
-        self.threadPool.start(worker2)
+        globalParams.fileNum = 0
+        globalParams.fileCounter = 0
+        # ---------------------------------------------------------------------
+        # 解析を実行するファイル数のカウント & プログレスバーの初期化
+        # ---------------------------------------------------------------------
+        try:
+            self.countInputFiles()
+            self.ui.progressBar.setRange(0, int(globalParams.fileNum))
+            # ---------------------------------------------------------------------
+            # main処理の実行
+            # ---------------------------------------------------------------------
+            self.runMainModule()
+        except:
+            pass
         
     @pyqtSlot(object)
     def display_sig_error_message(self, object):
@@ -219,10 +242,15 @@ class DemoApp(QWidget):
     def countInputFiles(self):
 
         # ---------------------------------------------------------------------
-        # 変数の初期化
+        # グローバル変数の初期化
         # ---------------------------------------------------------------------
-        filePath = glob.glob(self.ui.inputFolderLineEdit.text() + "/*.*")
-        globalParams.fileNum = len(filePath)
+        if (self.ui.inputFolderLineEdit.text() == 
+                                "入力フォルダの絶対パスを指定してください" or 
+                                self.ui.inputFolderLineEdit.text() == ""):
+            self.display_sig_error_message(ValueError)
+        else:
+            filePath = glob.glob(self.ui.inputFolderLineEdit.text() + "/*.*")
+            globalParams.fileNum = len(filePath)
 
     def runMainModule(self):
 
@@ -241,10 +269,24 @@ class DemoApp(QWidget):
         # Mainモジュールの実行
         # ---------------------------------------------------------------------
         try:
-            sA = SluggishActionClass(globalParams.fileNum)
-            mainFlag = sA.main()
-            if mainFlag == True:
-                pass
+            # -----------------------------------------------------------------
+            # 例外テスト用
+            # -----------------------------------------------------------------            
+            if self.ui.valueErrorCheckBox.isChecked() == True:
+                raise ValueError
+            elif self.ui.fileNotFoundErrorCheckBox.isChecked() == True:
+                raise FileNotFoundError
+            elif self.ui.permissionErrorCheckBox.isChecked() == True:
+                raise PermissionError
+            else:
+                # -------------------------------------------------------------
+                # 例外テスト用のチェックボックスに、チェックが付いてない場合は、
+                # 通常通りに処理を実行する
+                # -------------------------------------------------------------                
+                sA = SluggishActionClass(globalParams.fileNum)
+                mainFlag = sA.main()
+                if mainFlag == True:
+                    pass
         except ValueError as e:
             self.send_error_signal(e)
         except FileNotFoundError as e:
@@ -282,6 +324,8 @@ class SluggishActionClass():
             # 1秒待つ動作を実行する
             time.sleep(1)
             globalParams.fileCounter += 1
+            print("{0} of {1} has analyzed.".format(
+                            globalParams.fileCounter, globalParams.fileNum))
         else:
             return True
 
