@@ -54,7 +54,7 @@
        <item row="1" column="1">
         <widget class="QLineEdit" name="outputFolderLineEdit">
          <property name="text">
-          <string>入力フォルダの絶対パスを指定してください</string>
+          <string>出力フォルダの絶対パスを指定してください</string>
          </property>
         </widget>
        </item>
@@ -82,7 +82,7 @@
        <item row="2" column="1">
         <widget class="QLineEdit" name="configFileLineEdit">
          <property name="text">
-          <string>入力フォルダの絶対パスを指定してください</string>
+          <string>Configファイルの絶対パスを指定してください</string>
          </property>
         </widget>
        </item>

@@ -103,11 +103,11 @@ class Ui_DemoApp(object):
         _translate = QtCore.QCoreApplication.translate
         DemoApp.setWindowTitle(_translate("DemoApp", "DemoApp"))
         self.groupBox.setTitle(_translate("DemoApp", "ファイル関係"))
-        self.outputFolderLineEdit.setText(_translate("DemoApp", "入力フォルダの絶対パスを指定してください"))
+        self.outputFolderLineEdit.setText(_translate("DemoApp", "出力フォルダの絶対パスを指定してください"))
         self.inputFolderLineEdit.setText(_translate("DemoApp", "入力フォルダの絶対パスを指定してください"))
         self.label_2.setText(_translate("DemoApp", "出力フォルダ"))
         self.label_3.setText(_translate("DemoApp", "Configファイル"))
-        self.configFileLineEdit.setText(_translate("DemoApp", "入力フォルダの絶対パスを指定してください"))
+        self.configFileLineEdit.setText(_translate("DemoApp", "Configファイルの絶対パスを指定してください"))
         self.label.setText(_translate("DemoApp", "入力フォルダ"))
         self.selectInputFolderPushButton.setText(_translate("DemoApp", "入力フォルダを指定"))
         self.selectOutputFolderPushButton.setText(_translate("DemoApp", "出力フォルダを指定"))
