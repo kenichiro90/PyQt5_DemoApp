@@ -1,4 +1,4 @@
-import copy, glob, os, sys, time, traceback
+import configparser, copy, glob, os, sys, time, traceback
 from PyQt5.QtCore import (Qt, QThreadPool, QRunnable, 
                             pyqtSignal, pyqtSlot, QObject)
 from PyQt5.QtWidgets import (QWidget, QFileDialog, QMessageBox, QApplication)
@@ -99,7 +99,6 @@ class DemoApp(QWidget):
         # ---------------------------------------------------------------------
         if self.readConfigFp[0]:
             self.parseConfigFile()
-            self.setFromConfigFile()
             QMessageBox.information(self, "Message", 
                                     u"設定内容をConfigファイルから読み込みました")
         elif self.readConfigFp[0] == "":
@@ -127,23 +126,36 @@ class DemoApp(QWidget):
     def setToConfigFile(self):
 
         # ---------------------------------------------------------------------
-        # Configファイルへ書き込む動作を記述する
+        # configparserの初期化
         # ---------------------------------------------------------------------
-        pass
+        config = configparser.ConfigParser()
+        # ---------------------------------------------------------------------
+        # GUIの設定内容をconfigへセットする
+        # ---------------------------------------------------------------------
+        section1 = "File"
+        config.add_section(section1)
+        config.set(section1, "input", self.ui.inputFolderLineEdit.text())
+        config.set(section1, "output", self.ui.outputFolderLineEdit.text())
+        # ---------------------------------------------------------------------
+        # configの内容を.iniファイルとして出力
+        # ---------------------------------------------------------------------
+        with open(self.writeConfigFp[0], "w") as file:
+            config.write(file)
 
     def parseConfigFile(self):
 
         # ---------------------------------------------------------------------
-        # Configファイルの内容をパースする動作を記述する
+        # configparserの初期化
         # ---------------------------------------------------------------------
-        pass
-
-    def setFromConfigFile(self):
-
+        config = configparser.ConfigParser()
         # ---------------------------------------------------------------------
-        # Configファイルから読み込む動作を記述する
+        # Configファイルの内容をパースし、GUIへ内容を反映する
         # ---------------------------------------------------------------------
-        pass
+        config.read(self.readConfigFp[0])
+        section1 = "File"
+        self.ui.inputFolderLineEdit.setText(config.get(section1, "input"))
+        self.ui.outputFolderLineEdit.setText(config.get(section1, "output"))
+        self.ui.configFileLineEdit.setText(self.readConfigFp[0])
 
     def update_status_mainAnalysis(self):
 
