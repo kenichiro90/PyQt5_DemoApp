@@ -256,8 +256,10 @@ class DemoApp(QWidget):
         if (self.ui.inputFolderLineEdit.text() == 
                                 "入力フォルダの絶対パスを指定してください" or 
                                 self.ui.inputFolderLineEdit.text() == ""):
+            # 初期値、もしくは、何も入力されていない場合は、ValueErrorを送出する
             self.display_sig_error_message(ValueError)
         else:
+            # 指定されたフォルダの中にあるファイル数を数える
             filePath = glob.glob(self.ui.inputFolderLineEdit.text() + "/*.*")
             globalParams.fileNum = len(filePath)
 
