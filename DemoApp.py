@@ -1,10 +1,7 @@
 import copy, glob, os, sys, time, traceback
-from PyQt5.QtCore import (Qt, QThreadPool, QRunnable, pyqtSignal, pyqtSlot, 
-                        QObject, QDate)
-from PyQt5.QtWidgets import (QTabWidget, QWidget, QVBoxLayout, QFileDialog, 
-                            QGroupBox, QFormLayout, QPushButton, QLineEdit, 
-                            QCheckBox, QHBoxLayout, QMessageBox, QApplication, 
-                            QMainWindow, QProgressBar)
+from PyQt5.QtCore import (Qt, QThreadPool, QRunnable, 
+                            pyqtSignal, pyqtSlot, QObject)
+from PyQt5.QtWidgets import (QWidget, QFileDialog, QMessageBox, QApplication)
 from DemoApp_UI import Ui_DemoApp
 import globalParams
 
